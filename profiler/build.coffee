@@ -1,18 +1,13 @@
 path = require 'path'
 
 includes = [
-  'include'
-  'dependencies/ansa/include'
-  'dependencies/ansa/dependencies/anlock/src'
+  '../include'
+  '../dependencies/ansa/include'
+  '../dependencies/ansa/dependencies/anlock/src'
 ]
 
 sourceDirs = [
-  'src/arch/api'
-  'src/bindings'
-  'src/calls'
-  'src/compiler'
-  'dependencies/ansa/src'
-  'dependencies/ansa/dependencies/anlock/src'
+  'src'
 ]
 
 module.exports = (Finder, Makefile, environment) ->
@@ -23,7 +18,6 @@ module.exports = (Finder, Makefile, environment) ->
   finder = new Finder()
   for source in sourceDirs
     finder.search source
-  finder.search 'src/arch/' + arch
   
   objdir = path.join environment.root, 'build/objects'
   makefile = new Makefile finder, includes, objdir

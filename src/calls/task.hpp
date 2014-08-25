@@ -3,7 +3,7 @@
 
 #include <ansa/macros>
 
-namespace alux {
+namespace libalux {
 
 /**
  * Terminate the current task. If [status] is non-zero, the task will be killed

@@ -7,8 +7,8 @@ export PROJECT_ROOT
 CC ?= gcc
 CXX ?= g++
 ASM ?= nasm
-CXXFLAGS ?= -nostdlib -nostdinc -ffreestanding -fno-exceptions -fno-rtti -Wno-long-long -Wall -Wextra -std=c++11 -mno-sse -mno-mmx -fno-stack-protector -fno-builtin
-CFLAGS ?= -nostdlib -nostdinc -ffreestanding -Wno-long-long -Wall -Wextra -mno-sse -mno-mmx -fno-stack-protector -fno-builtin
+CXXFLAGS ?= -nostdlib -nostdinc -ffreestanding -fno-exceptions -fno-rtti -Wno-long-long -Wall -Wextra -std=c++11 -mno-sse -mno-mmx -fno-stack-protector -fno-builtin -mcmodel=large
+CFLAGS ?= -nostdlib -nostdinc -ffreestanding -Wno-long-long -Wall -Wextra -mno-sse -mno-mmx -fno-stack-protector -fno-builtin -mcmodel=large
 ASMFLAGS ?= -f elf64
 
 export CC
@@ -17,6 +17,11 @@ export ASM
 export CXXFLAGS
 export CFLAGS
 export ASMFLAGS
+
+default: build/libalux.a
+
+profiler/build/profiler: build/libalux.a
+	make -C profiler
 
 build/libalux.a: build/objects
 	make -C link/$(TARGET_ARCH)
@@ -36,3 +41,4 @@ build:
 
 clean:
 	rm -rf build
+	cd profiler && make clean && cd -

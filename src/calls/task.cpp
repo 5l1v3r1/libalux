@@ -1,9 +1,12 @@
 #include "task.hpp"
+#include <libalux/arch/syscall>
 
-namespace alux {
+namespace libalux {
 
-void Exit(int) {
-  __asm__(""); // fool the compiler into thinking we did something
+void Exit(int status) {
+  Syscall call(1);
+  call.PushBool(status != 0);
+  call.Run();
   __builtin_unreachable();
 }
 

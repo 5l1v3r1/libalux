@@ -5,8 +5,8 @@
 extern "C" {
 
 int __assert(const char * msg) {
-  PrintConsole(msg);
-  Exit(1);
+  libalux::PrintConsole(msg);
+  libalux::Exit(1);
 }
 
 }

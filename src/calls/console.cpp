@@ -1,9 +1,12 @@
 #include "console.hpp"
+#include <libalux/arch/syscall>
 
-namespace alux {
+namespace libalux {
 
-void PrintConsole(const char *) {
-  // TODO: something here
+void PrintConsole(const char * str) {
+  Syscall call(0);
+  call.PushVirtAddr((VirtAddr)str);
+  call.Run();
 }
 
 }

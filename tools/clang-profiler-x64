@@ -1,12 +1,13 @@
 #!/bin/bash
 
-if [ $# != 1 ]; then
-  echo 'Usage: clang-build-x64 <AR name>'
+if [ $# != 2 ]; then
+  echo 'Usage: clang-profiler-x64 <LD NAME> <AR name>'
   exit
 fi
 
 export CXXFLAGS=${CXXFLAGS}\ "-nostdlib -nostdinc -ffreestanding -mno-red-zone -fno-exceptions -fno-rtti -Wno-long-long -Wall -Wextra -std=c++11 -mno-sse -mno-mmx -fno-stack-protector -fno-builtin -integrated-as -target x86_64-pc-none-elf64 -mcmodel=large"
 export CFLAGS=${CFLAGS}\ "-nostdlib -nostdinc -ffreestanding -mno-red-zone -Wno-long-long -Wall -Wextra -mno-sse -mno-mmx -fno-stack-protector -fno-builtin -integrated-as -target x86_64-pc-none-elf64 -mcmodel=large"
-export AR=$1
+export LD=$1
+export AR=$2
 
-make clean && make
+make clean && make profiler/build/profiler

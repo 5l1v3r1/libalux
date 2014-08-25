@@ -1,7 +1,7 @@
 #ifndef __LIBALUX_CONSOLE_HPP__
 #define __LIBALUX_CONSOLE_HPP__
 
-namespace alux {
+namespace libalux {
 
 /**
  * Print some [text] to the global console. In the future, output will be
