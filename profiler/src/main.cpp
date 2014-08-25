@@ -1,11 +1,11 @@
-#include <libalux/console>
+#include <libalux/print>
 
 using namespace libalux;
 
 extern "C" {
 
 int main() {
-  PrintConsole("welcome to the libalux profiler!");
+  PrintLine("welcome to the libalux profiler!");
   return 0;
 }
 

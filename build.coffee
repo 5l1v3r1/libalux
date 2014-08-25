@@ -11,6 +11,7 @@ sourceDirs = [
   'src/bindings'
   'src/calls'
   'src/compiler'
+  'src/util'
   'dependencies/ansa/src'
   'dependencies/ansa/dependencies/anlock/src'
 ]
