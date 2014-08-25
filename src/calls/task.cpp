@@ -1,13 +1,19 @@
 #include "task.hpp"
+#include "syscalls.hpp"
 #include <libalux/arch/syscall>
 
 namespace libalux {
 
 void Exit(int status) {
-  Syscall call(1);
+  Syscall call(ExitSyscall);
   call.PushBool(status != 0);
   call.Run();
   __builtin_unreachable();
+}
+
+uint32_t GetPid() {
+  Syscall call(GetPidSyscall);
+  return call.Run().integer32;
 }
 
 }

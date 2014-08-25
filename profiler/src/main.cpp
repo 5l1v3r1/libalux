@@ -1,11 +1,12 @@
 #include <libalux/print>
+#include <libalux/task>
 
 using namespace libalux;
 
 extern "C" {
 
 int main() {
-  PrintLine("welcome to the libalux profiler!");
+  PrintLine("Alux profiler started, PID ", GetPid());
   return 0;
 }
 

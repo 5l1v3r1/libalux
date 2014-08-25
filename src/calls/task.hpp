@@ -1,6 +1,7 @@
 #ifndef __LIBALUX_TASK_HPP__
 #define __LIBALUX_TASK_HPP__
 
+#include <cstdint>
 #include <ansa/macros>
 
 namespace libalux {
@@ -10,6 +11,11 @@ namespace libalux {
  * with an "aborted" status.
  */
 void Exit(int status) ANSA_NORETURN;
+
+/**
+ * Return the process identifier of the current task.
+ */
+uint32_t GetPid();
 
 }
 
