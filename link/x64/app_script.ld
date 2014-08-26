@@ -4,6 +4,17 @@ SECTIONS {
 
   .text BLOCK(16) : ALIGN(16) {
     *(.libaluxinit)
+    
+    _libalux_inits_start = .;
+    *(.ctors)
+    *(.init_array)
+    _libalux_inits_end = .;
+    
+    _libalux_deinits_start = .;
+    *(.dtors)
+    *(.fini_array)
+    _libalux_deinits_end = .;
+    
     *(.text)
   }
   
