@@ -23,6 +23,9 @@ default: build/libalux.a
 profiler/build/profiler: build/libalux.a
 	make -C profiler
 
+tester/build/tester: build/libalux.a
+	make -C tester
+
 build/libalux.a: build/objects
 	make -C link/$(TARGET_ARCH)
 
@@ -42,3 +45,4 @@ build:
 clean:
 	rm -rf build
 	cd profiler && make clean && cd -
+	cd tester && make clean && cd -

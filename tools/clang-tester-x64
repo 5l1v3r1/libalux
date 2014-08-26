@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ $# != 2 ]; then
+  echo 'Usage: clang-tester-x64 <LD NAME> <AR name>'
+  exit
+fi
+
+`dirname $0`/clang-target-x64 tester/build/tester $1 $2
