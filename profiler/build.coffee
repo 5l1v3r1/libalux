@@ -1,9 +1,9 @@
 path = require 'path'
 
 includes = [
-  '../include'
-  '../dependencies/ansa/include'
-  '../dependencies/ansa/dependencies/anlock/src'
+  '../libalux/include'
+  '../libalux/dependencies/ansa/include'
+  '../libalux/dependencies/ansa/dependencies/anlock/src'
 ]
 
 sourceDirs = [

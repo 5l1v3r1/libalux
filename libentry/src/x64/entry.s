@@ -1,10 +1,10 @@
-section .libaluxinit
+section .libentryinit
 
-extern libalux_main
+extern libentry_main
 
-libalux_entry_point:
+libentry_entry_point:
   mov rsp, temporaryStack.bottom
-  call libalux_main
+  call libentry_main
   ; never reached
 
 ; 16 KB temporary stack

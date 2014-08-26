@@ -1,12 +1,17 @@
 #include "task.hpp"
 #include "syscalls.hpp"
 #include <libalux/arch/syscall>
-#include <libalux/arch/globals>
+
+extern "C" {
+
+extern void __cxa_finalize(void *);
+
+}
 
 namespace libalux {
 
 void Exit(int status) {
-  RunGlobalDestructors();
+  __cxa_finalize(NULL);
   
   Syscall call(ExitSyscall);
   call.PushBool(status != 0);

@@ -1,8 +1,5 @@
 TARGET_ARCH ?= x64
-override PROJECT_ROOT=${shell pwd}
-
 export TARGET_ARCH
-export PROJECT_ROOT
 
 CC ?= gcc
 CXX ?= g++
@@ -18,31 +15,32 @@ export CXXFLAGS
 export CFLAGS
 export ASMFLAGS
 
-default: build/libalux.a
+libalux/build/libalux.a: dependencies
+	make -C libalux
 
-profiler/build/profiler: build/libalux.a
+libentry/build/libentry.a: dependencies
+	make -C libentry
+
+profiler/build/profiler: libentry/build/libentry.a libalux/build/libalux.a
 	make -C profiler
 
-tester/build/tester: build/libalux.a
+tester/build/tester: libentry/build/libentry.a libalux/build/libalux.a
 	make -C tester
-
-build/libalux.a: build/objects
-	make -C link/$(TARGET_ARCH)
-
-build/objects: build dependencies
-	mkdir build/objects
-	./dependencies/makemaker/bin/makemaker build.coffee
-	make -C build/objects
 
 dependencies:
 	mkdir dependencies
-	git clone http://github.com/unixpickle/ansa.git dependencies/ansa
 	git clone http://github.com/unixpickle/makemaker.git dependencies/makemaker
 
-build:
-	mkdir build
-
 clean:
+	cd libalux && make clean && cd -
+	cd libentry && make clean && cd -
+	cd profiler && make clean && cd -
+	cd tester && make clean && cd -
+
+clean-all:
+	rm -rf dependencies
 	rm -rf build
+	cd libalux && make clean-all && cd -
+	cd libentry && make clean && cd -
 	cd profiler && make clean && cd -
 	cd tester && make clean && cd -

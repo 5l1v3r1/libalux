@@ -1,5 +1,5 @@
-#ifndef __ALUX_CSTRING_HPP__
-#define __ALUX_CSTRING_HPP__
+#ifndef __LIBALUX_CSTRING_HPP__
+#define __LIBALUX_CSTRING_HPP__
 
 #include <cstddef> // to get size_t type
 

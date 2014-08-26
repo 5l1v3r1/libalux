@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ $# != 1 ]; then
+  echo 'Usage: clang-libalux-x64 <AR name>'
+  exit
+fi
+
+`dirname $0`/clang-target-x64 libalux/build/libalux.a $1

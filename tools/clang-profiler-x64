@@ -5,4 +5,4 @@ if [ $# != 2 ]; then
   exit
 fi
 
-`dirname $0`/clang-target-x64 profiler/build/profiler $1 $2
+`dirname $0`/clang-target-x64 profiler/build/profiler $2 $1
