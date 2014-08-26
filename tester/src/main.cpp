@@ -8,11 +8,19 @@ using namespace libalux;
 
 extern "C" {
 
+void TestStaticInit();
+
 int main() {
-  PrintLine("Alux tester started, PID ", GetPid());
+  PrintLine("Alux tester started, PID ", GetPid(), " UID ", GetUid());
+  TestStaticInit();
+  return 0;
+}
+
+void TestStaticInit() {
+  Print("testing static variable initialization...");
   assert(CheckStaticIncrement1());
   assert(CheckStaticIncrement2());
-  return 0;
+  PrintLine(" passed!");
 }
 
 }

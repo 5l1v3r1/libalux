@@ -24,4 +24,9 @@ uint32_t GetPid() {
   return call.Run().integer32;
 }
 
+uint32_t GetUid() {
+  Syscall call(GetUidSyscall);
+  return call.Run().integer32;
+}
+
 }

@@ -6,7 +6,8 @@ namespace libalux {
 enum Syscalls {
   PrintSyscall,
   ExitSyscall,
-  GetPidSyscall
+  GetPidSyscall,
+  GetUidSyscall
 };
 
 }

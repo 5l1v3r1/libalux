@@ -17,6 +17,11 @@ void Exit(int status) ANSA_NORETURN;
  */
 uint32_t GetPid();
 
+/**
+ * Return the user identifier of the current task.
+ */
+uint32_t GetUid();
+
 }
 
 #endif
