@@ -7,7 +7,13 @@ enum Syscalls {
   PrintSyscall,
   ExitSyscall,
   GetPidSyscall,
-  GetUidSyscall
+  GetUidSyscall,
+  CountPageSizesSyscall,
+  GetPageSizeSyscall,
+  GetPageAlignSyscall,
+  GetVMCapabilitiesSyscall,
+  AllocateSyscall,
+  FreeSyscall
 };
 
 }
