@@ -1,0 +1,2 @@
+void ProfileMemoryStats();
+void ProfilePhysicalAllocation();

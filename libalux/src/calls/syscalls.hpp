@@ -13,7 +13,8 @@ enum Syscalls {
   GetPageAlignSyscall,
   GetVMCapabilitiesSyscall,
   AllocateSyscall,
-  FreeSyscall
+  FreeSyscall,
+  GetNanoTimeSyscall
 };
 
 }

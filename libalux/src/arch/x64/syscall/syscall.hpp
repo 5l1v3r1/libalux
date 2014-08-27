@@ -15,11 +15,14 @@ public:
     bool boolean;
     int integer;
     uint32_t integer32;
+    uint64_t integer64;
     PhysAddr phys;
     VirtAddr virt;
     PhysSize pSize;
     size_t vSize;
   };
+  
+  static_assert(sizeof(RetVal) == 8, "invalid RetVal size");
   
   Syscall(uint16_t number);
   
