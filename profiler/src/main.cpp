@@ -10,6 +10,8 @@ int main() {
   PrintLine("Alux profiler started, PID ", GetPid());
   ProfileMemoryStats();
   ProfilePhysicalAllocation();
+  ProfileVirtualMap();
+  ProfileVirtualReserve();
   return 0;
 }
 

@@ -31,3 +31,51 @@ void ProfilePhysicalAllocation() {
   PrintLine("ProfilePhysicalAllocation() - ", (GetBootNanoTime() - start),
             " nanos");
 }
+
+void ProfileVirtualMap() {
+  size_t pageSize = GetPageSize(0);
+  size_t pageAlign = GetPageAlign(0) ?: 1;
+  assert(pageSize > 0);
+  
+  PhysAddr physical;
+  VMSize size(pageSize, 1);
+  bool status = AllocPhysical(physical, pageSize, pageAlign);
+  assert(status);
+  
+  VirtAddr mapped;
+  VMAttributes attributes;
+  
+  uint64_t start = GetBootNanoTime();
+  for (int i = 0; i < 10000; ++i) {
+    status = VMMap(mapped, physical, size, attributes);
+    assert(status);
+    
+    // attempt to set it to verify it was mapped
+    *(char *)mapped = 0x7f;
+
+    VMUnmap(mapped, size);
+  }
+  uint64_t end = GetBootNanoTime();
+  
+  FreePhysical(physical);
+  
+  PrintLine("ProfileVirtualMap() - ", (end - start), " nanos");
+}
+
+void ProfileVirtualReserve() {
+  size_t pageSize = GetPageSize(0);
+  assert(pageSize > 0);
+  VMSize size(pageSize, 1);
+  
+  VirtAddr reserved;
+  
+  uint64_t start = GetBootNanoTime();
+  for (int i = 0; i < 100000; ++i) {
+    bool status = VMReserve(reserved, size);
+    assert(status);
+    VMUnreserve(reserved, size);
+  }
+  uint64_t end = GetBootNanoTime();
+  
+  PrintLine("ProfileVirtualReserve() - ", (end - start), " nanos");
+}
