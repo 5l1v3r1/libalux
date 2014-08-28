@@ -19,6 +19,8 @@ struct VMAttributes {
   bool writable = true;
   bool cachable = true;
   
+  VMAttributes() {}
+  
   VMAttributes(int value)
     : executable((value & 1) != 0), writable((value & 2) != 0),
       cachable((value & 4) != 0) {}
@@ -31,6 +33,8 @@ struct VMAttributes {
 struct VMSize {
   size_t pageSize;
   size_t pageCount;
+  
+  VMSize(size_t ps, size_t pc) : pageSize(ps), pageCount(pc) {}
 };
 
 int CountPageSizes();

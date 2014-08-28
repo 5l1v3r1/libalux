@@ -3,6 +3,7 @@
 #include <cassert>
 #include "statics1.hpp"
 #include "statics2.hpp"
+#include "memory.hpp"
 
 using namespace libalux;
 
@@ -13,6 +14,7 @@ void TestStaticInit();
 int main() {
   PrintLine("Alux tester started, PID ", GetPid(), " UID ", GetUid());
   TestStaticInit();
+  TestAllocAndMap();
   return 0;
 }
 
