@@ -13,6 +13,7 @@ int main() {
   ProfileVirtualMap();
   ProfileVirtualReserve();
   ProfileSecondVirtualMap();
+  ProfileVirtualRead();
   return 0;
 }
 

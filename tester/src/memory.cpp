@@ -30,3 +30,34 @@ void TestAllocAndMap() {
   FreePhysical(physical);
   PrintLine(" passed!");
 }
+
+void TestVMRead() {
+  Print("Testing VMRead()...");
+  size_t pageSize = GetPageSize(0);
+  size_t pageAlign = GetPageAlign(0) ?: 1;
+  assert(pageSize > 0);
+  
+  PhysAddr physical;
+  VMSize size(pageSize, 1);
+  bool status = AllocPhysical(physical, pageSize, pageAlign);
+  assert(status);
+  VirtAddr mapped;
+  VMAttributes attributes;
+  
+  status = VMMap(mapped, physical, size, attributes);
+  assert(status);
+  
+  PhysAddr physOut;
+  VMAttributes attrsOut;
+  size_t pageSizeOut;
+  status = VMRead(&physOut, &attrsOut, &pageSizeOut, mapped);
+  assert(status);
+  
+  assert(physOut == physical);
+  assert(attrsOut == attributes);
+  assert(pageSize == pageSizeOut);
+  
+  VMUnmap(mapped, size);
+  FreePhysical(physical);
+  PrintLine(" passed!");
+}

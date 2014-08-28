@@ -28,6 +28,11 @@ struct VMAttributes {
   operator int() const {
     return (executable ? 1 : 0) | (writable ? 2 : 0) | (cachable ? 4 : 0);
   }
+  
+  inline bool operator==(const VMAttributes & a) const {
+    return executable == a.executable && writable == a.writable &&
+      cachable == a.cachable;
+  }
 };
 
 struct VMSize {

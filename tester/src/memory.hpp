@@ -1,1 +1,2 @@
 void TestAllocAndMap();
+void TestVMRead();

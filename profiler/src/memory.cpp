@@ -17,7 +17,8 @@ void ProfileMemoryStats() {
     GetVMCapabilities();
   }
   
-  PrintLine("ProfileMemoryStats() - ", (GetBootNanoTime() - start), " nanos");
+  PrintLine("ProfileMemoryStats() - ", (GetBootNanoTime() - start) / 1000000,
+            " nanos");
 }
 
 void ProfilePhysicalAllocation() {
@@ -28,8 +29,8 @@ void ProfilePhysicalAllocation() {
     assert(res);
     FreePhysical(addr);
   }
-  PrintLine("ProfilePhysicalAllocation() - ", (GetBootNanoTime() - start),
-            " nanos");
+  PrintLine("ProfilePhysicalAllocation() - ", (GetBootNanoTime() - start)
+    / 20000, " nanos");
 }
 
 void ProfileVirtualMap() {
@@ -59,7 +60,7 @@ void ProfileVirtualMap() {
   
   FreePhysical(physical);
   
-  PrintLine("ProfileVirtualMap() - ", (end - start), " nanos");
+  PrintLine("ProfileVirtualMap() - ", (end - start) / 10000, " nanos");
 }
 
 void ProfileVirtualReserve() {
@@ -77,7 +78,7 @@ void ProfileVirtualReserve() {
   }
   uint64_t end = GetBootNanoTime();
   
-  PrintLine("ProfileVirtualReserve() - ", (end - start), " nanos");
+  PrintLine("ProfileVirtualReserve() - ", (end - start) / 100000, " nanos");
 }
 
 void ProfileSecondVirtualMap() {
@@ -110,5 +111,38 @@ void ProfileSecondVirtualMap() {
   
   VMUnmap(firstMapped, size);
   FreePhysical(physical);
-  PrintLine("ProfileSecondVirtualMap() - ", (end - start), " nanos");
+  PrintLine("ProfileSecondVirtualMap() - ", (end - start) / 10000, " nanos");
+}
+
+void ProfileVirtualRead() {
+  size_t pageSize = GetPageSize(0);
+  size_t pageAlign = GetPageAlign(0) ?: 1;
+  assert(pageSize > 0);
+  
+  PhysAddr physical;
+  VMSize size(pageSize, 1);
+  bool status = AllocPhysical(physical, pageSize, pageAlign);
+  assert(status);
+  VirtAddr mapped;
+  VMAttributes attributes;
+  
+  status = VMMap(mapped, physical, size, attributes);
+  assert(status);
+  
+  uint64_t start = GetBootNanoTime();
+  for (int i = 0; i < 100000; ++i) {
+    PhysAddr physOut;
+    VMAttributes attrsOut;
+    size_t pageSizeOut;
+    status = VMRead(&physOut, &attrsOut, &pageSizeOut, mapped);
+    assert(status);
+    assert(physOut == physical);
+    assert(attrsOut == attributes);
+    assert(pageSize == pageSizeOut);
+  }
+  uint64_t end = GetBootNanoTime();
+  
+  VMUnmap(mapped, size);
+  FreePhysical(physical);
+  PrintLine("ProfileVirtualRead() - ", (end - start) / 100000, " nanos");
 }

@@ -15,6 +15,7 @@ int main() {
   PrintLine("Alux tester started, PID ", GetPid(), " UID ", GetUid());
   TestStaticInit();
   TestAllocAndMap();
+  TestVMRead();
   return 0;
 }
 
