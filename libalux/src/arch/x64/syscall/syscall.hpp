@@ -11,18 +11,21 @@ namespace x64 {
 
 class Syscall {
 public:
-  union RetVal {
-    bool boolean;
-    int integer;
-    uint32_t integer32;
-    uint64_t integer64;
-    PhysAddr phys;
-    VirtAddr virt;
-    PhysSize pSize;
-    size_t vSize;
+  struct RetVal {
+    union {
+      bool boolean;
+      int integer;
+      uint32_t integer32;
+      uint64_t integer64;
+      PhysAddr phys;
+      VirtAddr virt;
+      PhysSize pSize;
+      size_t vSize;
+    } value;
+    int error;
   };
   
-  static_assert(sizeof(RetVal) == 8, "invalid RetVal size");
+  static_assert(sizeof(RetVal) == 0x10, "invalid RetVal size");
   
   Syscall(uint16_t number);
   

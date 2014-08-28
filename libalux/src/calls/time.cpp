@@ -4,7 +4,7 @@
 namespace libalux {
 
 uint64_t GetBootNanoTime() {
-  return Syscall(GetNanoTimeSyscall).Run().integer64;
+  return Syscall(GetNanoTimeSyscall).Run().value.integer64;
 }
 
 }

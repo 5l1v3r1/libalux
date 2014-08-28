@@ -14,7 +14,16 @@ enum Syscalls {
   GetVMCapabilitiesSyscall,
   AllocateSyscall,
   FreeSyscall,
-  GetNanoTimeSyscall
+  GetNanoTimeSyscall,
+  VMReadSyscall,
+  VMMapSyscall,
+  VMMapAtSyscall,
+  VMUnmapSyscall,
+  VMUnmapAndReserveSyscall,
+  VMReserveSyscall,
+  VMReserveAtSyscall,
+  VMUnreserveSyscall,
+  VMRereserveSyscall
 };
 
 }

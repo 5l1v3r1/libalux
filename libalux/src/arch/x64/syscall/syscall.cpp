@@ -47,9 +47,10 @@ Syscall::RetVal Syscall::Run() {
           "mov 0x10(%%rbx), %%r9\n"
           "mov (%%rbx), %%rbx\n"
           "syscall"
-          : "=a" (r) : "D" (number), "S" (arguments[0]), "d" (arguments[1]),
+          : "=a" (*((uint64_t *)&r)), "=d" (*((uint64_t *)&r + 1))
+          : "D" (number), "S" (arguments[0]), "d" (arguments[1]),
             "b" (&arguments[2])
-          : "rcx", "memory");
+          : "rcx", "r10", "r11", "memory");
   return r;
 }
 

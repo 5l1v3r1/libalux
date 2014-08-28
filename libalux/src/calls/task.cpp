@@ -21,12 +21,12 @@ void Exit(int status) {
 
 uint32_t GetPid() {
   Syscall call(GetPidSyscall);
-  return call.Run().integer32;
+  return call.Run().value.integer32;
 }
 
 uint32_t GetUid() {
   Syscall call(GetUidSyscall);
-  return call.Run().integer32;
+  return call.Run().value.integer32;
 }
 
 }
