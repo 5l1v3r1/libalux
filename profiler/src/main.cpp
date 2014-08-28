@@ -12,6 +12,7 @@ int main() {
   ProfilePhysicalAllocation();
   ProfileVirtualMap();
   ProfileVirtualReserve();
+  ProfileSecondVirtualMap();
   return 0;
 }
 

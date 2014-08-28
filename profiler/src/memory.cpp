@@ -79,3 +79,36 @@ void ProfileVirtualReserve() {
   
   PrintLine("ProfileVirtualReserve() - ", (end - start), " nanos");
 }
+
+void ProfileSecondVirtualMap() {
+  size_t pageSize = GetPageSize(0);
+  size_t pageAlign = GetPageAlign(0) ?: 1;
+  assert(pageSize > 0);
+  
+  PhysAddr physical;
+  VMSize size(pageSize, 1);
+  bool status = AllocPhysical(physical, pageSize * 2, pageAlign);
+  assert(status);
+  VirtAddr mapped;
+  VirtAddr firstMapped;
+  VMAttributes attributes;
+  
+  status = VMMap(firstMapped, physical, size, attributes);
+  assert(status);
+  
+  uint64_t start = GetBootNanoTime();
+  for (int i = 0; i < 10000; ++i) {
+    status = VMMap(mapped, physical + pageSize, size, attributes);
+    assert(status);
+    
+    // attempt to set it to verify it was mapped
+    *(char *)mapped = 0x7f;
+
+    VMUnmap(mapped, size);
+  }
+  uint64_t end = GetBootNanoTime();
+  
+  VMUnmap(firstMapped, size);
+  FreePhysical(physical);
+  PrintLine("ProfileSecondVirtualMap() - ", (end - start), " nanos");
+}
