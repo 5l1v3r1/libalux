@@ -4,6 +4,7 @@
 #include "statics1.hpp"
 #include "statics2.hpp"
 #include "memory.hpp"
+#include "thread.hpp"
 
 using namespace libalux;
 
@@ -16,6 +17,8 @@ int main() {
   TestStaticInit();
   TestAllocAndMap();
   TestVMRead();
+  TestThreadId();
+  TestSleep();
   return 0;
 }
 

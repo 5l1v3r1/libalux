@@ -1,0 +1,2 @@
+void TestThreadId();
+void TestSleep();
