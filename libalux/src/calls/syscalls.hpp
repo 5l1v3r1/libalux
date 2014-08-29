@@ -23,7 +23,13 @@ enum Syscalls {
   VMReserveSyscall,
   VMReserveAtSyscall,
   VMUnreserveSyscall,
-  VMRereserveSyscall
+  VMRereserveSyscall,
+  ExitThreadSyscall,
+  GetThreadIdSyscall,
+  LaunchThreadSyscall,
+  SleepSyscall,
+  SleepInfiniteSyscall,
+  WakeupSyscall
 };
 
 }
