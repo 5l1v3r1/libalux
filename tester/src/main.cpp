@@ -18,6 +18,7 @@ int main() {
   TestAllocAndMap();
   TestVMRead();
   TestThreadId();
+  TestLaunchThread();
   TestSleep();
   return 0;
 }
