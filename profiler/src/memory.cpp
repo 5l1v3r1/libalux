@@ -146,3 +146,48 @@ void ProfileVirtualRead() {
   FreePhysical(physical);
   PrintLine("ProfileVirtualRead() - ", (end - start) / 100000, " nanos");
 }
+
+void ProfilePlacementMapUnmap() {
+  const int multiple = 0x200;
+  
+  uint64_t mapTime = 0;
+  uint64_t unmapTime = 0;
+  
+  size_t pageSize = GetPageSize(0);
+  size_t pageAlign = GetPageAlign(0) ?: 1;
+  assert(pageSize > 0);
+  
+  PhysAddr physical;
+  bool status = AllocPhysical(physical, pageSize * multiple, pageAlign);
+  assert(status);
+  
+  VirtAddr virtStart;
+  status = VMReserve(virtStart, VMSize(pageSize, multiple));
+  assert(status);
+  
+  VMSize singleSize = VMSize(pageSize, 1);
+  VMAttributes attributes;
+  
+  for (int i = 0; i < 100; ++i) {
+    uint64_t start = GetBootNanoTime();
+    for (int j = 0; j < multiple; ++j) {
+      size_t addSize = ((size_t)j * pageSize);
+      VirtAddr dest = virtStart + addSize;
+      PhysAddr src = physical + (PhysSize)addSize;
+      VMMapAt(dest, src, singleSize, attributes);
+    }
+    uint64_t end = GetBootNanoTime();
+    mapTime += end - start;
+    for (int j = 0; j < multiple; ++j) {
+      VirtAddr dest = virtStart + ((size_t)j * pageSize);
+      VMUnmapAndReserve(dest, singleSize);
+    }
+    unmapTime += GetBootNanoTime() - end;
+  }
+  
+  FreePhysical(physical);
+  VMUnreserve(virtStart, VMSize(pageSize, multiple));
+  
+  PrintLine("ProfilePlacementMapUnmap() - map=", mapTime / (100 * multiple),
+            " nanos; unmap=", unmapTime / (100 * multiple), " nanos");
+}

@@ -4,3 +4,4 @@ void ProfileVirtualMap();
 void ProfileVirtualReserve();
 void ProfileSecondVirtualMap();
 void ProfileVirtualRead();
+void ProfilePlacementMapUnmap();

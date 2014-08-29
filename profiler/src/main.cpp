@@ -14,6 +14,7 @@ int main() {
   ProfileVirtualReserve();
   ProfileSecondVirtualMap();
   ProfileVirtualRead();
+  ProfilePlacementMapUnmap();
   return 0;
 }
 
