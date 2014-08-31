@@ -5,6 +5,7 @@
 extern "C" {
 
 int __assert(const char * msg) {
+  libalux::SetColor(libalux::ColorRed, true);
   libalux::PrintConsole(msg);
   libalux::Exit(1);
 }

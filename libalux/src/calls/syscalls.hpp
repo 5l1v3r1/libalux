@@ -29,7 +29,8 @@ enum Syscalls {
   LaunchThreadSyscall,
   SleepSyscall,
   SleepInfiniteSyscall,
-  WakeupSyscall
+  WakeupSyscall,
+  SetColorSyscall
 };
 
 }

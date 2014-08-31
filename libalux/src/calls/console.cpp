@@ -10,4 +10,11 @@ void PrintConsole(const char * str) {
   call.Run();
 }
 
+void SetColor(Color c, bool bright) {
+  Syscall call(SetColorSyscall);
+  call.PushInt((int)c);
+  call.PushBool(bright);
+  call.Run();
+}
+
 }

@@ -3,6 +3,7 @@
 #include <cassert>
 #include "statics1.hpp"
 #include "statics2.hpp"
+#include "console.hpp"
 #include "memory.hpp"
 #include "thread.hpp"
 
@@ -14,6 +15,7 @@ void TestStaticInit();
 
 int main() {
   PrintLine("Alux tester started, PID ", GetPid(), " UID ", GetUid());
+  TestColors();
   TestStaticInit();
   TestAllocAndMap();
   TestVMRead();
